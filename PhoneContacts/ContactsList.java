@@ -85,7 +85,7 @@ public class ContactsList {
         Scanner myScanner = new Scanner(System.in);
         System.out.println(" Enter Name of Contact: ");
         String name = myScanner.nextLine();
-        System.out.println("Enter A Phone number: ");
+        System.out.println("Enter A phone number ***-****: ");
         String phone = myScanner.nextLine();
         contacts.add(name + " | " + phone);
 

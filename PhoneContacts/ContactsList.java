@@ -15,8 +15,8 @@ import java.util.Scanner;
 
 public class ContactsList {
     static List<String> contacts;
-
-    private int start = 0;
+    private static boolean terminate = false;
+    private static int start = 0;
     private static final String directory = "./data";
     private static final String fileName = "contacts.txt";
     static Path dataDirectory = Paths.get(directory);
@@ -47,7 +47,7 @@ public class ContactsList {
             }
             switch (choice) {
                 case "1":
-                    readContacts();
+                    readContact();
                     break;
                 case "2":
                     addContact();
@@ -70,7 +70,7 @@ public class ContactsList {
 
     }
 
-    public static boolean goodToGo() throws IOException {
+    public static boolean fileMaker() throws IOException {
         Path dataFile = Paths.get(directory, fileName);
 
         if (Files.notExists(dataDirectory)) {
@@ -91,16 +91,14 @@ public class ContactsList {
         String phone = myScanner.nextLine();
         contacts.add(name + " , " + phone);
 
-
-
     }
 
-    public static void readContacts() throws IOException {
-        if (goodToGo()) {
+    public static void readContact() throws IOException {
+        if (fileMaker()) {
             try {
                 contacts = Files.readAllLines(contactsPath);
             } catch (IOException e) {
-                System.out.println("failed to load");
+                System.out.println("failed to load contact list");
                 System.out.println(e.getMessage());
             }
         }
@@ -116,7 +114,7 @@ public class ContactsList {
     }
 
     public static void writeContacts() throws IOException {
-        if (goodToGo()) {
+        if (fileMaker()) {
             try {
                 Files.write(contactsPath, contacts);
             } catch (IOException e) {
@@ -125,24 +123,29 @@ public class ContactsList {
             }
         }
     }
+
     public static void searchContact() {
-        boolean fake = false;
-        int index = 0;
+
         Scanner search = new Scanner(System.in);
         Input find = new Input(search);
-        System.out.println("3. Search by name ");
         String name = find.getString("Enter a Name");
 
         for (int i = 0; i < contacts.size(); i++) {
-            String[] entry = contacts.get(i).split(" , ");
+            String[] entry = contacts.get(i).split(" , ", 2);
             if (entry[0].equalsIgnoreCase(name)) {
-                fake = true;
-                index = i;
+                terminate = true;
+                start = i;
             }
-        } if(fake){
-            String[] entry = contacts.get(index).split(" , ");
-            System.out.println(entry);
-        }else{
+        }
+        if (terminate) {
+            String[] entry = contacts.get(start).split(" , ", 2);
+            System.out.println("Here is that contact:");
+            System.out.println("<--------------------->");
+            System.out.println("Name      |      Number");
+            System.out.println("<--------------------->");
+            System.out.println(entry[0] + " | " + entry[1]);
+            System.out.println();
+        } else {
             System.out.println("No Contact Exist");
         }
 

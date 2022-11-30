@@ -13,10 +13,10 @@ public class Input {
         return scanner.nextLine();
 
     }
-    public String getString(String specialMessage) {
-        System.out.println(specialMessage + "\n");
-        String s = scanner.nextLine();
-        return s;
+    public String getString(String Message) {
+        System.out.println(Message + "\n");
+        String str = scanner.nextLine();
+        return str;
     }
     public boolean yesNo() {
         System.out.println("enter yes/no or y/n");

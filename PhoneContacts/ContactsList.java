@@ -101,12 +101,14 @@ public class ContactsList {
                 System.out.println(e.getMessage());
             }
         }
+        System.out.println();
         System.out.println("Your Contact List");
-        System.out.println("Name | Phone Number");
-        System.out.println("<----------------->");
+        System.out.println("Contact | Phone Number");
+        System.out.println("<--------------------------->");
         for (int c = 0; c < contacts.size(); c++) {
             System.out.println(contacts.get(c));
         }
+        System.out.println("<--------------------------->");
         System.out.println();
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ContactsList {
-    static List<String> contacts = new ArrayList<>();
+    static List<String> contacts;
 
     private int start = 0;
     private static final String directory = "./data";
@@ -23,7 +23,7 @@ public class ContactsList {
     static Path contactsPath = Paths.get(directory, fileName);
 
     public static void main(String[] args) throws IOException {
-        ContactsList list = new ContactsList();
+
 
         BufferedReader prompt;
         prompt = new BufferedReader(new InputStreamReader(System.in));
@@ -89,7 +89,7 @@ public class ContactsList {
         String name = myScanner.nextLine();
         System.out.println("Enter A phone number ***-****: ");
         String phone = myScanner.nextLine();
-        contacts.add(name + "|" + phone);
+        contacts.add(name + " , " + phone);
 
 
 
@@ -133,15 +133,14 @@ public class ContactsList {
         System.out.println("3. Search by name ");
         String name = find.getString("Enter a Name");
 
-
         for (int i = 0; i < contacts.size(); i++) {
-         String entry = contacts.get(i);
-            if (entry.equalsIgnoreCase(name)) {
+            String[] entry = contacts.get(i).split(" , ");
+            if (entry[0].equalsIgnoreCase(name)) {
                 fake = true;
                 index = i;
             }
         } if(fake){
-            String entry = contacts.get(index);
+            String[] entry = contacts.get(index).split(" , ");
             System.out.println(entry);
         }else{
             System.out.println("No Contact Exist");

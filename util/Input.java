@@ -9,11 +9,15 @@ public class Input {
         this.scanner = scan;
     }
 
-    public String getString(String string) {
+    public String getString() {
         return scanner.nextLine();
 
     }
-
+    public String getString(String specialMessage) {
+        System.out.println(specialMessage + "\n");
+        String s = scanner.nextLine();
+        return s;
+    }
     public boolean yesNo() {
         System.out.println("enter yes/no or y/n");
         String resp = this.scanner.nextLine();

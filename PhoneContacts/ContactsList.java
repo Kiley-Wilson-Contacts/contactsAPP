@@ -122,5 +122,11 @@ public class ContactsList {
             }
         }
     }
+    public static void searchContact(){
+        Scanner search = new Scanner(System.in);
+        System.out.println("3. Search by name ");
+        String input = search.nextLine();
+
+    }
 
 }

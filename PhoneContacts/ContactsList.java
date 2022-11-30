@@ -53,7 +53,7 @@ public class ContactsList {
                     addContact();
                     break;
                 case "3":
-
+                    searchContact();
                     break;
                 case "4":
 
@@ -89,7 +89,8 @@ public class ContactsList {
         String name = myScanner.nextLine();
         System.out.println("Enter A phone number ***-****: ");
         String phone = myScanner.nextLine();
-        contacts.add(name + " | " + phone);
+        contacts.add(name + "|" + phone);
+
 
 
     }
@@ -124,11 +125,27 @@ public class ContactsList {
             }
         }
     }
-    public static void searchContact(){
+    public static void searchContact() {
+        boolean fake = false;
+        int index = 0;
         Scanner search = new Scanner(System.in);
         Input find = new Input(search);
         System.out.println("3. Search by name ");
-        String input = search.nextLine();
+        String name = find.getString("Enter a Name");
+
+
+        for (int i = 0; i < contacts.size(); i++) {
+         String entry = contacts.get(i);
+            if (entry.equalsIgnoreCase(name)) {
+                fake = true;
+                index = i;
+            }
+        } if(fake){
+            String entry = contacts.get(index);
+            System.out.println(entry);
+        }else{
+            System.out.println("No Contact Exist");
+        }
 
     }
 

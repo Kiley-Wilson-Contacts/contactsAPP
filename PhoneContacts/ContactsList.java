@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ContactsList {
     static List<String> contacts = new ArrayList<>();
@@ -74,6 +75,16 @@ public class ContactsList {
         }
 
     }
+    public static void addContact() throws IOException{
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("1. Add Contact");
+        System.out.println(" Enter Name: ");
+        String name = myScanner.nextLine();
+        System.out.println("Enter A Phone number: ");
+        String phone = myScanner.nextLine();
 
+
+
+    }
 
 }

@@ -2,6 +2,7 @@ package PhoneContacts;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -13,7 +14,12 @@ import java.util.Scanner;
 
 public class ContactsList {
     static List<String> contacts = new ArrayList<>();
+
     private int start = 0;
+    private static final String directory = "./data";
+    private static final String fileName = "contacts.txt";
+    Path dataDirectory = Paths.get(directory);
+    static Path contactsPath = Paths.get(directory, fileName);
 
     public static void main(String[] args) throws IOException {
         ContactsList list = new ContactsList();
@@ -22,10 +28,10 @@ public class ContactsList {
         prompt = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
 
-        String directory = "./data";
-        String filename = "contacts.txt";
+
+
         Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
+        Path dataFile = Paths.get(directory, fileName);
 
         if (Files.notExists(dataDirectory)) {
             Files.createDirectories(dataDirectory);
@@ -34,7 +40,7 @@ public class ContactsList {
         if (Files.notExists(dataFile)) {
             Files.createFile(dataFile);
         }
-        Path contactsPath = Paths.get(directory, filename);
+        Path contactsPath = Paths.get(directory, fileName);
 //        System.out.println("Files.exists(contactsPath) = " + Files.exists(contactsPath));
         while (true) {
             System.out.println(" Welcome to your Contacts ");
@@ -57,7 +63,7 @@ public class ContactsList {
 
                     break;
                 case "2":
-
+                    addContact();
                     break;
                 case "3":
 
@@ -77,11 +83,11 @@ public class ContactsList {
     }
     public static void addContact() throws IOException{
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("1. Add Contact");
-        System.out.println(" Enter Name: ");
+        System.out.println(" Enter Name of Contact: ");
         String name = myScanner.nextLine();
         System.out.println("Enter A Phone number: ");
         String phone = myScanner.nextLine();
+        Files.write(contactsPath, contacts);
 
 
 

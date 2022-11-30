@@ -1,6 +1,8 @@
 package PhoneContacts;
 
 
+import util.Input;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -124,6 +126,7 @@ public class ContactsList {
     }
     public static void searchContact(){
         Scanner search = new Scanner(System.in);
+        Input find = new Input(search);
         System.out.println("3. Search by name ");
         String input = search.nextLine();
 

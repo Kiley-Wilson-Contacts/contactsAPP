@@ -2,7 +2,6 @@ package PhoneContacts;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -18,7 +17,7 @@ public class ContactsList {
     private int start = 0;
     private static final String directory = "./data";
     private static final String fileName = "contacts.txt";
-    Path dataDirectory = Paths.get(directory);
+    static Path dataDirectory = Paths.get(directory);
     static Path contactsPath = Paths.get(directory, fileName);
 
     public static void main(String[] args) throws IOException {
@@ -28,20 +27,6 @@ public class ContactsList {
         prompt = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
 
-
-
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, fileName);
-
-        if (Files.notExists(dataDirectory)) {
-            Files.createDirectories(dataDirectory);
-        }
-
-        if (Files.notExists(dataFile)) {
-            Files.createFile(dataFile);
-        }
-        Path contactsPath = Paths.get(directory, fileName);
-//        System.out.println("Files.exists(contactsPath) = " + Files.exists(contactsPath));
         while (true) {
             System.out.println(" Welcome to your Contacts ");
             System.out.println("<========================>");
@@ -55,12 +40,12 @@ public class ContactsList {
             try {
                 choice = prompt.readLine();
             } catch (IOException e) {
-
-                System.out.println("Error");
+                System.out.println("Menu Error");
+                System.out.println(e.getMessage());
             }
             switch (choice) {
                 case "1":
-
+                    readContacts();
                     break;
                 case "2":
                     addContact();
@@ -78,19 +63,62 @@ public class ContactsList {
                     System.out.println("invalid input try again");
                     break;
             }
+            writeContacts();
         }
 
     }
-    public static void addContact() throws IOException{
+
+    public static boolean goodToGo() throws IOException {
+        Path dataFile = Paths.get(directory, fileName);
+
+        if (Files.notExists(dataDirectory)) {
+            Files.createDirectories(dataDirectory);
+        }
+
+        if (Files.notExists(dataFile)) {
+            Files.createFile(dataFile);
+        }
+        return true;
+    }
+
+    public static void addContact() throws IOException {
         Scanner myScanner = new Scanner(System.in);
         System.out.println(" Enter Name of Contact: ");
         String name = myScanner.nextLine();
         System.out.println("Enter A Phone number: ");
         String phone = myScanner.nextLine();
-        Files.write(contactsPath, contacts);
+        contacts.add(name + " | " + phone);
 
 
+    }
 
+    public static void readContacts() throws IOException {
+        if (goodToGo()) {
+            try {
+                contacts = Files.readAllLines(contactsPath);
+            } catch (IOException e) {
+                System.out.println("failed to load");
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("Your Contact List");
+        System.out.println("Name | Phone Number");
+        System.out.println("<----------------->");
+        for (int c = 0; c < contacts.size(); c++) {
+            System.out.println(contacts.get(c));
+        }
+        System.out.println();
+    }
+
+    public static void writeContacts() throws IOException {
+        if (goodToGo()) {
+            try {
+                Files.write(contactsPath, contacts);
+            } catch (IOException e) {
+                System.out.println("There was an error writing to the file.");
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }

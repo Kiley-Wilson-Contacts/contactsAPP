@@ -153,7 +153,7 @@ public class ContactsList {
 
         Scanner scn = new Scanner(System.in);
         Input delete = new Input(scn);
-        String name = delete.getString("Enter a Name");
+        String name = delete.getString("Enter a Name to delete");
 
         for (int i = 0; i < contacts.size(); i++) {
             String[] entry = contacts.get(i).split(" , ", 2);
@@ -169,10 +169,9 @@ public class ContactsList {
             System.out.println("Name      |      Number");
             System.out.println("<--------------------->");
             System.out.println(entry[0] + " | " + entry[1]);
-            String gone = delete.getString("Would you like to delete this contact?");
+            String gone = delete.getString("Would you like to delete this contact, enter yes");
             if(gone.equalsIgnoreCase("yes")){
                 contacts.remove(contacts.get(start));
-                Files.write(contactsPath, contacts);
             }
         } else {
             System.out.println("No Contact Exist");
